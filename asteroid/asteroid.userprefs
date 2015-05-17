@@ -1,0 +1,21 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\ai_ship_controller.cs">
+    <Files>
+      <File FileName="Assets\scripts\ai_ship_controller.cs" Line="102" Column="6" />
+      <File FileName="Assets\scripts\ai_station_controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_CAMod.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_weapon_laser.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_engine.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_library.cs" Line="23" Column="51" />
+      <File FileName="Assets\scripts\ai_ship_vision.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_DC.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_transponder.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ai_ship_orders.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
