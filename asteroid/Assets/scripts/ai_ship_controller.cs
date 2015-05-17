@@ -37,6 +37,8 @@ public class ai_ship_controller : MonoBehaviour {
 		//naive linear function to plot some lateral forces perfect for 20, good for about 5-25 @ 20 thrust
 		//may need to be set manually for each class of ship
 
+		this.GetComponent<Rigidbody2D> ().centerOfMass = new Vector3 (0,0,0);
+
 		distance = (engine.maxLateralThrust > 25)? 20f :(engine.maxLateralThrust-31.25f)/-0.75f;
 	}
 	
@@ -104,11 +106,15 @@ public class ai_ship_controller : MonoBehaviour {
 					}
 				}
 
+				//
 				if (Vector2.Distance (this.transform.position, currentWaypoint) > orders.minDistanceFromFollowee) {
 					//STAGE 1
 					//set current point
 					currentBehavior = ship_library.AI_BEHAVIOR_ORBIT_STAGE_ONE;
 				}
+
+
+
 
 			}
 			else if (currentBehavior == ship_library.AI_BEHAVIOR_ESCAPING){
@@ -117,6 +123,7 @@ public class ai_ship_controller : MonoBehaviour {
 					subBehavior = ship_library.AI_SUBBEHAVIOR_CHASE;
 				}
 			}
+			//too far away
 			if (Vector2.Distance(this.transform.position, currentWaypoint) > maxDistanceFromWaypoint){
 				//goto STAGE 1
 				currentBehavior = ship_library.AI_BEHAVIOR_ORBIT_STAGE_ONE;
@@ -124,6 +131,7 @@ public class ai_ship_controller : MonoBehaviour {
 				desperation = 0f;
 				threat = null;
 			}
+
 			
 			
 			break;
@@ -265,7 +273,7 @@ public class ai_ship_controller : MonoBehaviour {
 			//find the desired direction
 			desiredDirection = currentWaypoint - new Vector2(this.transform.position.x,this.transform.position.y);
 
-			Vector2 nextPosition = currentWaypoint - (Vector2)orders.followee.transform.position;
+			//Vector2 nextPosition = currentWaypoint - (Vector2)orders.followee.transform.position;
 			//find tangent to circle vector DEPRECATED
 			//Vector2 perp = new Vector2(-nextPosition.y, nextPosition.x) / Mathf.Sqrt(Mathf.Pow(nextPosition.x,2f) + Mathf.Pow(nextPosition.y,2f));
 

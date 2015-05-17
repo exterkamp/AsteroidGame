@@ -78,7 +78,12 @@ public class ship_weapon_laser : MonoBehaviour {
 				enemy.GetComponent<Rigidbody2D>().AddTorque(damage,ForceMode2D.Impulse);
 
 				ship_DC DC_unit = enemy.GetComponentInChildren<ship_DC>();
-				DC_unit.takeHit(damage);
+				if (DC_unit != null){
+					DC_unit.takeHit(damage);
+				}
+				else{
+					print ("Damage target lost?");
+				}
 
 
 			}

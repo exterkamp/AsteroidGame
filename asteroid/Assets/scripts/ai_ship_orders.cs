@@ -32,6 +32,11 @@ public class ai_ship_orders : MonoBehaviour {
 
 		switch (TYPE) {
 		case (ship_library.AI_ORDERS_GUARD_WAYPOINT):
+			if (waypoints.Length == 0){
+				waypoints = new Vector2[1];
+				waypoints[0] = this.transform.position;
+			}
+
 			nextPoint = waypoints[currentWaypoint];
 			if (DRAW_RAYS){Debug.DrawLine (this.transform.position,waypoints[currentWaypoint],Color.yellow,0.2f);}
 			break;
