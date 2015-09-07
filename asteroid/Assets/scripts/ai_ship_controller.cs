@@ -10,11 +10,25 @@ public class ai_ship_controller : MonoBehaviour {
 	private int subBehavior;
 	private int holdingPattern;
 	private ship_engine engine;
+	public GameObject engine_fx;
+
+	private ship_resource_manager res;
+	//private transport_bay bay;
+	//private crew_quarters quarters;
+
 	public float distance;//15f
 	public float desperation = 0f;
+	public bool enlisted = false;
+
+
 	private float propensityToFight;
-	private float propensityToFire;
+	//private float propensityToFire;
 	private float maxDistanceFromWaypoint;
+	private bool docking = false;
+	private bool sortee = false;
+	private int sorteeMillis = 1000;
+	private float sorteeBeginTime;
+
 
 	public bool DEBUG_RAYS = false;
 
@@ -24,23 +38,39 @@ public class ai_ship_controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		initialize ();
+	}
+
+	public void initialize(){
 		currentWaypoint = this.transform.position;
 		currentBehavior = ship_library.AI_BEHAVIOR_HOLDING;
 		holdingPattern = ship_library.AI_HOLDING_CCW;
 		engine = this.GetComponent<ship_engine> ();
 		laser = this.GetComponentInChildren<ship_weapon_laser> ();
 		orders = this.GetComponent<ai_ship_orders>();
+
+		//bay = this.GetComponentInChildren<transport_bay> ();
+		//bay.initialize ();
+
+		//quarters = this.GetComponentInChildren<crew_quarters> ();
+		//crewman captain = new crewman ("The Captain", enlisted, ship_library.CREW_JOB_COMMAND, ship_library.CREW_CIV_CAPTAIN);
+		//quarters.initialize (enlisted);
+
+		res = this.GetComponentInChildren<ship_resource_manager> ();
+		res.initialize (enlisted);
+
 		propensityToFight = orders.propensityToFight;
-		propensityToFire = orders.propensityToFire;
+		//propensityToFire = orders.propensityToFire;
 		maxDistanceFromWaypoint = orders.maxDistanceFromWaypoint;
 		analyzeInitialOrders ();
 		//naive linear function to plot some lateral forces perfect for 20, good for about 5-25 @ 20 thrust
 		//may need to be set manually for each class of ship
-
+		
 		this.GetComponent<Rigidbody2D> ().centerOfMass = new Vector3 (0,0,0);
-
+		
 		distance = (engine.maxLateralThrust > 25)? 20f :(engine.maxLateralThrust-31.25f)/-0.75f;
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -209,6 +239,29 @@ public class ai_ship_controller : MonoBehaviour {
 			
 			
 			break;
+		case (ship_library.AI_ORDERS_DOCK):
+
+			if (orders.docking){
+				currentBehavior = ship_library.AI_BEHAVIOR_GOING_TO_WAYPOINT;
+				this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+				docking = true;
+			} else if (orders.docked){
+				currentBehavior = ship_library.AI_BEHAVIOR_DOCKED;
+				this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			}
+
+			//if (orders.docked){
+			//	this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			//}
+
+
+
+
+
+
+
+			break;
+
 		}
 
 
@@ -477,10 +530,19 @@ public class ai_ship_controller : MonoBehaviour {
 					//engine.applyEnginePower(ship_library.DIRECTION_UP,ship_library.DIRECTION_RIGHT,1f,1f);
 					lateralDirection = ship_library.DIRECTION_RIGHT;
 				}
-				if (distanceToTarget <= laser.range && propensityToFire > Random.Range(0f,1f) && Mathf.Abs(angleDifference) < 10f){
+				if (distanceToTarget <= laser.range && /*propensityToFire > Random.Range(0f,1f) &&*/ Mathf.Abs(angleDifference) < 10f){
 					//if sortee success breakoff
-					if (laser.fire()){
+					float curTime = Time.time * 1000;
+					if (!sortee){
+						sorteeBeginTime = curTime;
+						sortee = true;
+					}
+					if ((curTime - sorteeBeginTime) > sorteeMillis){//laser.fire()){
 						subBehavior = ship_library.AI_SUBBEHAVIOR_BREAKOFF;
+						sortee = false;
+					}else{
+						//print ("ai_fire");
+						laser.fire ();
 					}
 				}
 			}else if (subBehavior == ship_library.AI_SUBBEHAVIOR_BREAKOFF){//problem if is messed up in process, or not behind player, is alittle weird
@@ -508,7 +570,7 @@ public class ai_ship_controller : MonoBehaviour {
 		}
 
 		//AUTOMATED COLLISION AVOIDANCE
-		if (this.GetComponentInChildren<ship_CAMod> () != null) {
+		if (this.GetComponentInChildren<ship_CAMod> () != null && !docking) {
 			float[] args  = this.GetComponentInChildren<ship_CAMod>().activateAvoidance();
 			if (args != null){
 				forwardDirection =  (int)args[0];
@@ -521,7 +583,7 @@ public class ai_ship_controller : MonoBehaviour {
 
 
 		engine.applyEnginePower(forwardDirection,lateralDirection,power,lateralPower);
-
+		//if engine power is going then enable engine_fx
 
 
 
@@ -544,7 +606,9 @@ public class ai_ship_controller : MonoBehaviour {
 			currentBehavior = ship_library.AI_BEHAVIOR_GOING_TO_WAYPOINT;
 			break;
 		case (ship_library.AI_ORDERS_ESCORT):
-
+			currentBehavior = ship_library.AI_BEHAVIOR_GOING_TO_WAYPOINT;
+			break;
+		case (ship_library.AI_ORDERS_DOCK):
 			currentBehavior = ship_library.AI_BEHAVIOR_GOING_TO_WAYPOINT;
 			break;
 		}

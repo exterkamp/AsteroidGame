@@ -8,12 +8,18 @@ public class ship_weapon_laser : MonoBehaviour {
 	public float accuracyAngle;
 	public float accuracy;
 	public float damage;
+	public int roundsPerMinute = 300;
+	private int millisBetweenRounds;
+	private float lastShotTime;
 
 	public bool showAngle = false;
 
 	// Use this for initialization
 	void Start () {
-	
+		millisBetweenRounds = (int)(1000 / (roundsPerMinute / 60f));
+		lastShotTime = Time.time;
+		//print (millisBetweenRounds);
+		//print (lastShotTime);
 	}
 	
 	// Update is called once per frame
@@ -43,6 +49,16 @@ public class ship_weapon_laser : MonoBehaviour {
 	}
 
 	public bool fire(){
+
+		float curTime = Time.time * 1000;
+
+		if (curTime - lastShotTime < millisBetweenRounds) {
+			//print (curTime - lastShotTime);
+			return false;
+		}
+		lastShotTime = curTime;
+
+
 		Vector2 currentAim = this.transform.up;
 		float currentAngle = Mathf.Atan2 (currentAim.x, currentAim.y) * Mathf.Rad2Deg;
 
@@ -86,11 +102,15 @@ public class ship_weapon_laser : MonoBehaviour {
 				}
 
 
+			}else{
+				Debug.DrawRay(this.transform.position,currentAim * range,Color.yellow,0.01f,false);
 			}
+			//print ("hit");
 			return true;
 
 		} else {
 			Debug.DrawRay(this.transform.position,currentAim * range,Color.red,0.01f,false);
+			//print ("miss");
 			return false;
 		}
 	}

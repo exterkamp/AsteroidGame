@@ -51,13 +51,21 @@
      <Compile Include="Assets\scripts\ai_ship_vision.cs" />
      <Compile Include="Assets\scripts\ai_station_controller.cs" />
      <Compile Include="Assets\scripts\camera_controller.cs" />
+     <Compile Include="Assets\scripts\crew_quarters.cs" />
+     <Compile Include="Assets\scripts\crewman.cs" />
+     <Compile Include="Assets\scripts\manifest_crew.cs" />
+     <Compile Include="Assets\scripts\manifest_resources.cs" />
      <Compile Include="Assets\scripts\ship_CAMod.cs" />
      <Compile Include="Assets\scripts\ship_DC.cs" />
      <Compile Include="Assets\scripts\ship_controls.cs" />
      <Compile Include="Assets\scripts\ship_engine.cs" />
      <Compile Include="Assets\scripts\ship_library.cs" />
+     <Compile Include="Assets\scripts\ship_resource_manager.cs" />
      <Compile Include="Assets\scripts\ship_transponder.cs" />
      <Compile Include="Assets\scripts\ship_weapon_laser.cs" />
+     <Compile Include="Assets\scripts\storage_container.cs" />
+     <Compile Include="Assets\scripts\time.cs" />
+     <Compile Include="Assets\scripts\transport_bay.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

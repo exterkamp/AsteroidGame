@@ -8,7 +8,7 @@ public class ship_controls : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		engine = this.GetComponent<ship_engine> ();
+		engine = this.GetComponentInChildren<ship_engine> ();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +30,7 @@ public class ship_controls : MonoBehaviour {
 			lateralMotion = ship_library.DIRECTION_RIGHT;
 		}
 
-		if (Input.GetButtonDown("ShipFire")) {
+		if (Input.GetButton("ShipFire")) {
 			if (this.GetComponentInChildren<ship_weapon_laser>() != null){
 				this.GetComponentInChildren<ship_weapon_laser>().fire();
 			}

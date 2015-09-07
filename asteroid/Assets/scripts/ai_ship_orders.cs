@@ -10,6 +10,8 @@ public class ai_ship_orders : MonoBehaviour {
 	public float maxDistanceFromWaypoint;
 	public float propensityToFight;
 	public float propensityToFire;
+	public bool docking = false;
+	public bool docked = false;
 
 	private int currentWaypoint;
 
@@ -70,6 +72,30 @@ public class ai_ship_orders : MonoBehaviour {
 				waypoints[0] = this.transform.position;
 				currentWaypoint = 0;
 			}
+			break;
+		case (ship_library.AI_ORDERS_DOCK):
+			if (followee != null){
+
+				if ((ai_station_controller)followee.gameObject.GetComponent<ai_station_controller>() != null){
+					ai_station_controller ai = ((ai_station_controller)followee.gameObject.GetComponent<ai_station_controller>());
+					bool proceed = ai.requestDocking();
+					if (proceed){
+						waypoints[0] = ai.dockingPoint.position;
+						nextPoint = waypoints[0];
+						if (DRAW_RAYS){Debug.DrawLine (this.transform.position,nextPoint,Color.yellow,0.2f);}
+						docking = true;
+
+					}
+					bool docked = ai.dockShip(this.gameObject);
+					if (docked){
+						waypoints[0] = this.transform.position;
+						nextPoint = waypoints[0];
+						this.docked = true;
+						docking = false;
+					}
+				}
+			}
+
 			break;
 		}
 

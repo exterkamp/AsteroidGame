@@ -1,18 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\ship_weapon_laser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\ai_ship_controller.cs">
     <Files>
-      <File FileName="Assets\scripts\ai_station_controller.cs" Line="61" Column="41" />
-      <File FileName="Assets\scripts\ai_ship_controller.cs" Line="40" Column="3" />
-      <File FileName="Assets\scripts\ship_CAMod.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\ship_weapon_laser.cs" Line="85" Column="33" />
+      <File FileName="Assets\scripts\ai_ship_controller.cs" Line="168" Column="47" />
+      <File FileName="Assets\scripts\ship_resource_manager.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\crew_quarters.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\time.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\crewman.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ai_station_controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ai_ship_orders.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_library.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\manifest_resources.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\storage_container.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ship_weapon_laser.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\manifest_crew.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\transport_bay.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\ship_engine.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\ship_library.cs" Line="23" Column="51" />
-      <File FileName="Assets\scripts\ai_ship_vision.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\ship_DC.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\ship_transponder.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\ai_ship_orders.cs" Line="32" Column="3" />
-      <File FileName="Assets\scripts\ship_controls.cs" Line="11" Column="46" />
+      <File FileName="Assets\scripts\ship_controls.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

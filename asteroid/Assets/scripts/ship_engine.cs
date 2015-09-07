@@ -11,6 +11,7 @@ public class ship_engine : MonoBehaviour {
 	public float maxReverseThrust;
 	public float inertialDampenerPower;
 	public float inertialSlipDampenerPower;
+	public float fuelEfficiency_fuelPerSecond = 5;
 
 
 
@@ -18,7 +19,7 @@ public class ship_engine : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		mRigidBody = this.GetComponent<Rigidbody2D> ();
+		mRigidBody = this.GetComponentInParent<Rigidbody2D> ();
 	}
 
 	public void applyEnginePower(int forwardMotion, int lateralMotion, float percentPower, float percentLateralPower){

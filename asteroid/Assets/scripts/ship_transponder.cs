@@ -5,7 +5,4 @@ public class ship_transponder : MonoBehaviour {
 
 	public int faction;
 
-
-
-
 }
